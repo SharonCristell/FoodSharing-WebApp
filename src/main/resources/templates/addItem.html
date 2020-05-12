@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Add Item</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="container">
+		<h1>New Item to upload</h1>
+		<div class="col-md-4">
+			<form th:object="${item}" th:action="@{/saveItem}" action="#"
+				method="post">
+				<input type="text" th:field="*{title}" class="form-control"
+					placeholder="Item Title" />
+				<div style="clear: both; display: block; height: 10px;"></div>
+				<textarea type="text" th:field="*{description}" class="form-control"
+					placeholder="Description" ></textarea>
+				<div style="clear: both; display: block; height: 10px;"></div>
+				<input type="text" th:field="*{location}" class="form-control"
+					placeholder="Location" />
+				<div style="clear: both; display: block; height: 10px;"></div>
+				<textarea type="text" th:field="*{pickuptimes}" class="form-control"
+					placeholder="Pickup Times" ></textarea>
+				<div style="clear: both; display: block; height: 10px;"></div>
+				<input type="submit" class="btn btn-primary" value="Save"></input>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

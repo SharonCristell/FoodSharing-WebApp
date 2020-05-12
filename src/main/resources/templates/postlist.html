@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
+<title>Post list</title>
+<meta>
+</head>
+<body>
+	<div class="container bg-warning">
+		<div th:fragment="header">
+			<nav class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark main-nav">
+				<!-- Brand/logo -->
+				<a class="navbar-brand" href="#"> <img
+					src="../../static/image/logo.jpg" th:src="@{/image/logo.jpg}"
+					width="100" height="40" alt="">
+				</a>
+				<!-- Links -->
+				<ul class="navbar-nav">
+
+					<li class="nav-item"><a class="nav-link" href="#"
+						th:href="@{/home}">Home</a></li>
+					<li class="nav-item active"><a class="nav-link" href="#"
+						th:href="@{/postlist}">Posts</a></li>
+					<li class="nav-item"><a class="nav-link" href="#"
+						th:href="@{/items}">Items </a></li>
+					<li class="nav-item">
+						<div>
+							<form th:action="@{/logout}" method="post">
+							<input type="submit" value="Sign Out" class="btn btn-outline-info" />
+							</form>
+						</div>
+					</li>
+			
+				</ul>
+
+			</nav>
+		</div>
+		
+			
+		<div class="container">
+			<h1 style="text-align: center; margin: 20px">Recent Posts</h1>
+			
+			<img class="rounded mx-auto d-block" src="../../static/image/sharingitem.gif" width="150"
+					th:src="@{/image/sharingitem.gif}" />
+			<div style="padding: 0 20px; margin-top: 20px">
+				<table class="table table-hover">
+					<thead>
+						<tr class="bg-danger" >
+							<th scope="col">Item Title</th>
+							<th scope="col">Description</th>
+							<th scope="col">Location</th>
+							<th scope="col">Posted Date</th>
+							<th scope="col">Due date</th>
+							<th scope="col">Duration</th>
+							<th scope="col">Type</th>
+							<th scope="col">Status</th>
+							<th scope="col" sec:authorize="hasAuthority('ADMIN')">Delete</th>
+							<th scope="col" sec:authorize="hasAuthority('ADMIN')">Edit</th>
+						</tr>
+					<thead>
+					<tbody>
+					<tbody>
+						<tr class="bg-info" th:each="post : ${posts}">
+							<td th:text="${post.title}"></td>
+							<td th:text="${post.description}"></td>
+							<td th:text="${post.location}"></td>
+							<td th:text="${post.postedDate}"></td>
+							<td th:text="${post.lastDate}"></td>
+							<td th:text="${post.duration}"></td>
+							<td th:text="${post.type.name}"></td>
+							<td th:text="${post.status.availability}"></td>
+							<td sec:authorize="hasAuthority('ADMIN')"><a
+								th:href="@{/delete/{id}(id=${post.id})}"
+								class="btn btn-outline-danger">Delete</a></td>
+							<td sec:authorize="hasAuthority('ADMIN')"><a
+								th:href="@{/edit/{id}(id=${post.id})}"
+								class="btn btn-outline-dark">Edit</a></td>
+						</tr>
+					</tbody>
+				</table>
+				<h4 style="text-align: center; margin: 20px">Join us to grow our FoodSharing community!
+				
+				<a href="/add" class="btn btn-outline-danger">Add Post</a></h4>
+			</div>
+		</div>
+	</div>
+</body>
+
+
+</html>

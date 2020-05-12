@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
+<title>Item list</title>
+<meta>
+</head>
+<body>
+	<div class="container bg-warning">
+		<div th:fragment="header">
+			<nav class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark main-nav">
+				<!-- Brand/logo -->
+				<a class="navbar-brand" href="#"> <img
+					src="../../static/image/logo.jpg" th:src="@{/image/logo.jpg}"
+					width="100" height="40" alt="">
+				</a>
+				<!-- Links -->
+				<ul class="navbar-nav">
+
+					<li class="nav-item"><a class="nav-link" href="#"
+						th:href="@{/home}">Home</a></li>
+					<li class="nav-item active"><a class="nav-link" href="#"
+						th:href="@{/postlist}">Posts</a></li>
+					<li class="nav-item"><a class="nav-link" href="#"
+						th:href="@{/items}">Items </a></li>
+					<li class="nav-item">
+						<div>
+							<form th:action="@{/logout}" method="post">
+							<input type="submit" value="Sign Out" class="btn btn-outline-info" />
+							</form>
+						</div>
+					</li>
+			
+				</ul>
+
+			</nav>
+		</div>
+		<div class="container bg-info">
+			<h1 style="text-align: center; margin: 10px">Items to post</h1>
+			<div class="row">
+				<div class="col-sm-4" th:each="item : ${items}">
+					<div class="card" style="width: 20rem;">
+						<img src="../../static/image/brownies.jpg" th:src="@{/image/brownies.jpg}" class="card-img-top"
+							alt="Card image cap" />
+						<div class="card-body">
+							<h5 class="card-title" th:text="${item.title}"></h5>
+							<h6 class="card-text" th:text="${item.description}"></h6>
+							<p class="card-text" th:text="${item.location}"></p>
+							<p class="card-text" th:text="${item.pickuptimes}"></p>
+							<p sec:authorize="hasAuthority('ADMIN')">
+								<a th:href="@{/deleteItem/{itemid}(itemid=${item.itemid})}"
+									class="btn btn-outline-danger">Delete</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<h4 style="text-align: center; margin: 20px">Join us to grow our FoodSharing community!
+		
+				<a href="/addItem" class="btn btn-outline-danger">Add Item</a></h4>
+		</div>
+	</div>
+</body>
+</html>
